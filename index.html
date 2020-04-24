@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Квест на 9 мая</title>
+    <meta charset="utf-8" />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/p5@1.0.0/lib/p5.js"
+    ></script>
+    <script type="text/javascript">
+      String.prototype.replace = function(a, b) {
+        return this.split(a).join(b);
+      };
+      var timer, nickname, timeIsUp;
+      var canvas1, canvas2;
+      var readyToGoTo2, readyToGoTo4;
+      var timeStart;
+      var code;
+      setInterval(function() {
+        if (document.title == "9 мая (0 мин осталось)") {
+          clearInterval(timer);
+          document.title = "9 мая (время вышло)";
+          timeIsUp = true;
+          alert(
+            "Извини, но время вышло. Ты можешь дальше продолжать игру, но завершить прохождение уже не сможешь. Если ты уже завершил прохождение и получил свой результат, проигнорируй это сообщение."
+          );
+        }
+      }, 1000);
+      document.removeAll = function() {
+        while (document.getElementsByTagName("span") !== 0) {
+          try {
+            document.getElementsByTagName("span")[0].remove();
+          } catch {
+            break;
+          }
+        }
+        while (document.getElementsByTagName("input") !== 0) {
+          try {
+            document.getElementsByTagName("input")[0].remove();
+          } catch {
+            break;
+          }
+        }
+        while (document.getElementsByTagName("button") !== 0) {
+          try {
+            document.getElementsByTagName("button")[0].remove();
+          } catch {
+            break;
+          }
+        }
+        while (document.getElementsByTagName("br") !== 0) {
+          try {
+            document.getElementsByTagName("br")[0].remove();
+          } catch {
+            break;
+          }
+        }
+        while (document.getElementsByTagName("textarea") !== 0) {
+          try {
+            document.getElementsByTagName("textarea")[0].remove();
+          } catch {
+            break;
+          }
+        }
+      };
+      function to1() {
+        if (document.getElementsByTagName("input")[0].value == "") {
+          return alert("Введи фамилию и имя!");
+        }
+        nickname = document.getElementsByTagName("input")[0].value;
+        document.removeAll();
+        document.title = "9 мая (30 мин осталось)";
+        timeStart = new Date();
+        timer = setInterval(function() {
+          document.title = `9 мая (${parseInt(
+            document.title
+              .split(" ")[2]
+              .replace("(", "")
+              .replace(")", "")
+          ) - 1} мин осталось)`;
+        }, 60000);
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[0]
+          .setAttribute(
+            "style",
+            "font-size: 26px; color: white; font-family: Times New Roman; font-weight: bold; text-decoration: underline;"
+          );
+        document.getElementsByTagName("span")[0].innerHTML =
+          "Задание 1. Поиск предметов, необходимых на войне.";
+        document.body.insertBefore(
+          document.getElementsByTagName("span")[0],
+          document.getElementById("items")
+        );
+        document.body.append(document.createElement("br"));
+        document.body.insertBefore(
+          document.getElementsByTagName("br")[0],
+          document.getElementById("items")
+        );
+        document.body.append(document.createElement("span"));
+        document.body.insertBefore(
+          document.getElementsByTagName("span")[1],
+          document.getElementById("items")
+        );
+        document.body.append(document.createElement("br"));
+        document.body.insertBefore(
+          document.getElementsByTagName("br")[1],
+          document.getElementById("items")
+        );
+        document.getElementsByTagName("span")[1].innerHTML =
+          "Задача: перенести предметы в правильные места.";
+        document
+          .getElementsByTagName("span")[1]
+          .setAttribute(
+            "style",
+            "font-size: 20px; color: white; font-family: Times New Roman; font-weight: bold;"
+          );
+        document.getElementById("items").children[0].removeAttribute("hidden");
+        //document.getElementById('items').children[1].removeAttribute('hidden');
+        clearInterval(canvas1);
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("button"));
+        document.getElementsByTagName("button")[0].innerHTML =
+          "Перейти к заданию 2";
+        document
+          .getElementsByTagName("button")[0]
+          .setAttribute(
+            "style",
+            "font-size: 26px; font-family: Times New Roman; font-weight: bold;"
+          );
+        document
+          .getElementsByTagName("button")[0]
+          .setAttribute("onclick", "to2()");
+      }
+      function to2() {
+        if (!readyToGoTo2) {
+          return alert("Ты не забрал всё нужное.....");
+        }
+        document.removeAll();
+        document.getElementById("items").remove();
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[0]
+          .setAttribute(
+            "style",
+            "font-size: 26px; color: white; font-family: Times New Roman; font-weight: bold; text-decoration: underline;"
+          );
+        document.getElementsByTagName("span")[0].innerHTML =
+          "Задание 2. Письмо перед боем.";
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[1]
+          .setAttribute(
+            "style",
+            "font-size: 20px; color: white; font-family: Times New Roman; font-weight: bold;"
+          );
+        document.getElementsByTagName("span")[1].innerHTML =
+          "Задача: написать письмо объёмом не менее 50 слов и отправить его на почту <i>1505quest@mail.ru</i> с темой <i>код</i>";
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[2]
+          .setAttribute(
+            "style",
+            "font-size: 20px; color: white; font-family: Times New Roman; font-weight: bold;"
+          );
+        document.getElementsByTagName("span")[2].innerHTML =
+          "Поле ниже можешь использовать как черновик.";
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("textarea"));
+        document
+          .getElementsByTagName("textarea")[0]
+          .setAttribute("placeholder", "Черновик");
+        document
+          .getElementsByTagName("textarea")[0]
+          .setAttribute(
+            "style",
+            "font-size: 12px; color: black; font-family: Times New Roman;"
+          );
+        document.getElementsByTagName("textarea")[0].setAttribute("rows", "10");
+        document.getElementsByTagName("textarea")[0].setAttribute("cols", "45");
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("button"));
+        document.getElementsByTagName("button")[0].innerHTML =
+          "Перейти к заданию 3";
+        document
+          .getElementsByTagName("button")[0]
+          .setAttribute(
+            "style",
+            "font-size: 26px; font-family: Times New Roman; font-weight: bold;"
+          );
+        document
+          .getElementsByTagName("button")[0]
+          .setAttribute("onclick", "to3()");
+      }
+      function to3() {
+        if (prompt("Введи код из письма!") !== "8dyuqgypb6ic") {
+          return alert("Код неверный!");
+        }
+        document.removeAll();
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[0]
+          .setAttribute(
+            "style",
+            "font-size: 26px; color: white; font-family: Times New Roman; font-weight: bold; text-decoration: underline;"
+          );
+        document.getElementsByTagName("span")[0].innerHTML =
+          'Задание 3. Игра "Лётчики".';
+        document.body.insertBefore(
+          document.getElementsByTagName("span")[0],
+          document.getElementById("flappy")
+        );
+        document.body.append(document.createElement("br"));
+        document.body.insertBefore(
+          document.getElementsByTagName("br")[0],
+          document.getElementById("flappy")
+        );
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("span"));
+        document.body.insertBefore(
+          document.getElementsByTagName("span")[1],
+          document.getElementById("flappy")
+        );
+        document.getElementsByTagName("span")[1].innerHTML =
+          "Задача: просканирвоать 100% местности.";
+        document
+          .getElementsByTagName("span")[1]
+          .setAttribute(
+            "style",
+            "font-size: 20px; color: white; font-family: Times New Roman; font-weight: bold;"
+          );
+        document.body.insertBefore(
+          document.getElementsByTagName("br")[1],
+          document.getElementById("flappy")
+        );
+        document.getElementById("flappy").children[0].removeAttribute("hidden");
+        document.getElementById("flappy").children[1].removeAttribute("hidden");
+        clearInterval(canvas2);
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("button"));
+        document.getElementsByTagName("button")[0].innerHTML =
+          "Перейти к заданию 4";
+        document
+          .getElementsByTagName("button")[0]
+          .setAttribute(
+            "style",
+            "font-size: 26px; font-family: Times New Roman; font-weight: bold;"
+          );
+        document
+          .getElementsByTagName("button")[0]
+          .setAttribute("onclick", "to4()");
+      }
+      function to4() {
+        if (!readyToGoTo4) {
+          return alert("Ты не просканировал всю местность.....");
+        }
+        document.removeAll();
+        document.getElementById("flappy").remove();
+        document.title = "Квест на 9 мая";
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[0]
+          .setAttribute(
+            "style",
+            "font-size: 26px; color: white; font-family: Times New Roman; font-weight: bold; text-decoration: underline;"
+          );
+        document.getElementsByTagName("span")[0].innerHTML =
+          "Задание 4. Итоговый тест.";
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[1]
+          .setAttribute(
+            "style",
+            "font-size: 20px; color: white; font-family: Times New Roman; font-weight: bold;"
+          );
+        document.getElementsByTagName("span")[1].innerHTML =
+          "Задача: дать правильные ответы на все вопросы.";
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("br"));
+
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[2]
+          .setAttribute(
+            "style",
+            "font-size: 16px; color: white; font-family: Times New Roman; font-weight: bold;"
+          );
+        document.getElementsByTagName("span")[2].innerHTML =
+          "1. В чем заключалось значение битвы за Москву?";
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("input"));
+        document.getElementsByTagName("input")[0].setAttribute("name", "1");
+        document.getElementsByTagName("input")[0].setAttribute("type", "radio");
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[3]
+          .setAttribute(
+            "style",
+            "font-size: 16px; color: white; font-family: Times New Roman;"
+          );
+        document.getElementsByTagName("span")[3].innerHTML =
+          "Был сорван план молниеносной войны";
+
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("input"));
+        document.getElementsByTagName("input")[1].setAttribute("name", "1");
+        document.getElementsByTagName("input")[1].setAttribute("type", "radio");
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[4]
+          .setAttribute(
+            "style",
+            "font-size: 16px; color: white; font-family: Times New Roman;"
+          );
+        document.getElementsByTagName("span")[4].innerHTML =
+          "Был открыт второй фронт в Европе";
+
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("input"));
+        document.getElementsByTagName("input")[2].setAttribute("name", "1");
+        document.getElementsByTagName("input")[2].setAttribute("type", "radio");
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[5]
+          .setAttribute(
+            "style",
+            "font-size: 16px; color: white; font-family: Times New Roman;"
+          );
+        document.getElementsByTagName("span")[5].innerHTML =
+          "Стратегическая инициатива перешла в руки советского командования";
+
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[6]
+          .setAttribute(
+            "style",
+            "font-size: 16px; color: white; font-family: Times New Roman; font-weight: bold;"
+          );
+        document.getElementsByTagName("span")[6].innerHTML =
+          "2. Какая из битв Великой Отечественной войны относится к периоду коренного перелома?";
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("input"));
+        document.getElementsByTagName("input")[3].setAttribute("name", "2");
+        document.getElementsByTagName("input")[3].setAttribute("type", "radio");
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[7]
+          .setAttribute(
+            "style",
+            "font-size: 16px; color: white; font-family: Times New Roman;"
+          );
+        document.getElementsByTagName("span")[7].innerHTML = "Курская битва";
+
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("input"));
+        document.getElementsByTagName("input")[4].setAttribute("name", "2");
+        document.getElementsByTagName("input")[4].setAttribute("type", "radio");
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[8]
+          .setAttribute(
+            "style",
+            "font-size: 16px; color: white; font-family: Times New Roman;"
+          );
+        document.getElementsByTagName("span")[8].innerHTML =
+          "Битва под Москвой";
+
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("input"));
+        document.getElementsByTagName("input")[5].setAttribute("name", "2");
+        document.getElementsByTagName("input")[5].setAttribute("type", "radio");
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[9]
+          .setAttribute(
+            "style",
+            "font-size: 16px; color: white; font-family: Times New Roman;"
+          );
+        document.getElementsByTagName("span")[9].innerHTML = "Битва за Берлин";
+
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[10]
+          .setAttribute(
+            "style",
+            "font-size: 16px; color: white; font-family: Times New Roman; font-weight: bold;"
+          );
+        document.getElementsByTagName("span")[10].innerHTML =
+          "3. Какая из перечисленных международных конференций не относится к событиям Великой Отечественной войны?";
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("input"));
+        document.getElementsByTagName("input")[6].setAttribute("name", "3");
+        document.getElementsByTagName("input")[6].setAttribute("type", "radio");
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[11]
+          .setAttribute(
+            "style",
+            "font-size: 16px; color: white; font-family: Times New Roman;"
+          );
+        document.getElementsByTagName("span")[11].innerHTML = "Потсдамская";
+
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("input"));
+        document.getElementsByTagName("input")[7].setAttribute("name", "3");
+        document.getElementsByTagName("input")[7].setAttribute("type", "radio");
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[12]
+          .setAttribute(
+            "style",
+            "font-size: 16px; color: white; font-family: Times New Roman;"
+          );
+        document.getElementsByTagName("span")[12].innerHTML = "Мюнхенская";
+
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("input"));
+        document.getElementsByTagName("input")[8].setAttribute("name", "3");
+        document.getElementsByTagName("input")[8].setAttribute("type", "radio");
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[13]
+          .setAttribute(
+            "style",
+            "font-size: 16px; color: white; font-family: Times New Roman;"
+          );
+        document.getElementsByTagName("span")[13].innerHTML = "Тегеранская";
+
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[14]
+          .setAttribute(
+            "style",
+            "font-size: 16px; color: white; font-family: Times New Roman; font-weight: bold;"
+          );
+        document.getElementsByTagName("span")[14].innerHTML =
+          "4. С целью освобождения чего операция советских войск под кодовым названием «Багратион» была проведена?";
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("input"));
+        document.getElementsByTagName("input")[9].setAttribute("name", "4");
+        document.getElementsByTagName("input")[9].setAttribute("type", "radio");
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[15]
+          .setAttribute(
+            "style",
+            "font-size: 16px; color: white; font-family: Times New Roman;"
+          );
+        document.getElementsByTagName("span")[15].innerHTML = "Белоруссии";
+
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("input"));
+        document.getElementsByTagName("input")[10].setAttribute("name", "4");
+        document
+          .getElementsByTagName("input")[10]
+          .setAttribute("type", "radio");
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[16]
+          .setAttribute(
+            "style",
+            "font-size: 16px; color: white; font-family: Times New Roman;"
+          );
+        document.getElementsByTagName("span")[16].innerHTML =
+          "Правобережной Украины";
+
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("input"));
+        document.getElementsByTagName("input")[11].setAttribute("name", "4");
+        document
+          .getElementsByTagName("input")[11]
+          .setAttribute("type", "radio");
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[17]
+          .setAttribute(
+            "style",
+            "font-size: 16px; color: white; font-family: Times New Roman;"
+          );
+        document.getElementsByTagName("span")[17].innerHTML = "Польши";
+
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[18]
+          .setAttribute(
+            "style",
+            "font-size: 16px; color: white; font-family: Times New Roman; font-weight: bold;"
+          );
+        document.getElementsByTagName("span")[18].innerHTML =
+          "5. Что освободила Красная армия в годы войны?";
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("input"));
+        document.getElementsByTagName("input")[12].setAttribute("name", "5");
+        document
+          .getElementsByTagName("input")[12]
+          .setAttribute("type", "radio");
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[19]
+          .setAttribute(
+            "style",
+            "font-size: 16px; color: white; font-family: Times New Roman;"
+          );
+        document.getElementsByTagName("span")[19].innerHTML = "Стамбул";
+
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("input"));
+        document.getElementsByTagName("input")[13].setAttribute("name", "5");
+        document
+          .getElementsByTagName("input")[13]
+          .setAttribute("type", "radio");
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[20]
+          .setAttribute(
+            "style",
+            "font-size: 16px; color: white; font-family: Times New Roman;"
+          );
+        document.getElementsByTagName("span")[20].innerHTML = "Прагу";
+
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("input"));
+        document.getElementsByTagName("input")[14].setAttribute("name", "5");
+        document
+          .getElementsByTagName("input")[14]
+          .setAttribute("type", "radio");
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[21]
+          .setAttribute(
+            "style",
+            "font-size: 16px; color: white; font-family: Times New Roman;"
+          );
+        document.getElementsByTagName("span")[21].innerHTML = "Париж";
+
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("button"));
+        document.getElementsByTagName("button")[0].innerHTML =
+          "Перейти к финалу";
+        document
+          .getElementsByTagName("button")[0]
+          .setAttribute(
+            "style",
+            "font-size: 26px; font-family: Times New Roman; font-weight: bold;"
+          );
+        document
+          .getElementsByTagName("button")[0]
+          .setAttribute("onclick", "toFinal()");
+      }
+      function toFinal() {
+        if (
+          !document.getElementsByTagName("input")[0].checked ||
+          !document.getElementsByTagName("input")[3].checked ||
+          !document.getElementsByTagName("input")[7].checked ||
+          !document.getElementsByTagName("input")[9].checked ||
+          !document.getElementsByTagName("input")[13].checked
+        ) {
+          return alert("Не все ответы верны...");
+        }
+        if (timeIsUp) {
+          return alert(
+            "Молодец, все твои ответы верны, но время вышло, прости... А так спасибо за игру, удачи!"
+          );
+        }
+        document.removeAll();
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[0]
+          .setAttribute(
+            "style",
+            "font-size: 26px; color: white; font-family: Times New Roman; font-weight: bold;"
+          );
+        document.getElementsByTagName("span")[0].innerHTML =
+          "Молодец! Ты выполнил все задания!";
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[1]
+          .setAttribute(
+            "style",
+            "font-size: 20px; color: white; font-family: Times New Roman; font-weight: bold;"
+          );
+        document.getElementsByTagName(
+          "span"
+        )[1].innerHTML = `Фамилия Имя: <i>${nickname}</i>`;
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[2]
+          .setAttribute(
+            "style",
+            "font-size: 20px; color: white; font-family: Times New Roman; font-weight: bold;"
+          );
+        document.getElementsByTagName(
+          "span"
+        )[2].innerHTML = `Затраченное время: <i>${parseInt(
+          parseInt((new Date() - timeStart) / 1000) / 60
+        )} мин.</i>`;
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[3]
+          .setAttribute(
+            "style",
+            "font-size: 20px; color: white; font-family: Times New Roman; font-weight: bold;"
+          );
+        document.getElementsByTagName("span")[3].innerHTML =
+          "Результаты нужно отправить на почту <i>1505questresults@inbox.ru</i> скриншотом или фотографией до конца дня.";
+      }
+    </script>
+    <script type="text/javascript">
+      new p5(function(sketch) {
+        let img,
+          img1,
+          img2,
+          img3,
+          img4,
+          img5,
+          x,
+          k,
+          kv,
+          count = 0,
+          ch = 0,
+          m = 0,
+          start = 0,
+          col2 = 6;
+        var raz = 10;
+        var ves = [];
+        var ves2 = [];
+        var ve = [];
+        var ve2 = [];
+        var col = 0;
+        class stuff {
+          constructor(IMG) {
+            this.IMG = IMG;
+            this.x = sketch.random(300, 600);
+            this.y = sketch.random(0, 600);
+          }
+          show() {
+            sketch.image(this.IMG, this.x, this.y, 100, 100);
+          }
+          move() {
+            this.y = sketch.mouseY - 50;
+            this.x = sketch.mouseX - 50;
+          }
+        }
+        class stuff2 {
+          constructor(IMG) {
+            this.x = sketch.random(300, 600);
+            this.y = sketch.random(0, 600);
+            this.IMG = IMG;
+          }
+          show() {
+            sketch.image(this.IMG, this.x, this.y, 100, 100);
+          }
+          move() {
+            this.y = sketch.mouseY - 50;
+            this.x = sketch.mouseX - 50;
+          }
+        }
+        sketch.preload = function() {
+          img = sketch.loadImage(
+            "https://cdn.glitch.com/76058025-5943-4574-a266-27710a4366a7%2Fdayz-backpack-playerunknown-s-battlegrounds-arma-3-bag-backpack.png?v=1587719600475"
+          );
+          img1 = sketch.loadImage(
+            "https://cdn.glitch.com/76058025-5943-4574-a266-27710a4366a7%2F%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F-14.jpg?v=1587728335743"
+          );
+          img3 = sketch.loadImage(
+            "https://cdn.glitch.com/76058025-5943-4574-a266-27710a4366a7%2Fshop_items_catalog_image12626.png?v=1587715214178"
+          );
+          ve.push(
+            sketch.loadImage(
+              "https://cdn.glitch.com/76058025-5943-4574-a266-27710a4366a7%2F56f415043084d153a9721867.png?v=1587733645918"
+            )
+          );
+          ve.push(
+            sketch.loadImage(
+              "https://cdn.glitch.com/76058025-5943-4574-a266-27710a4366a7%2Fcompass_PNG25569.png?v=1587733646446"
+            )
+          );
+          ve.push(
+            sketch.loadImage(
+              "https://cdn.glitch.com/76058025-5943-4574-a266-27710a4366a7%2F%D0%91%D0%B5%D0%B7%20%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F.jpg?v=1587733647912"
+            )
+          );
+          ve.push(
+            sketch.loadImage(
+              "https://cdn.glitch.com/76058025-5943-4574-a266-27710a4366a7%2Fpen_PNG7418.png?v=1587733695815"
+            )
+          );
+          ve.push(
+            sketch.loadImage(
+              "https://cdn.glitch.com/76058025-5943-4574-a266-27710a4366a7%2Flighter_PNG11196.png?v=1587733784764"
+            )
+          );
+          ve.push(
+            sketch.loadImage(
+              "https://cdn.glitch.com/76058025-5943-4574-a266-27710a4366a7%2Ffirst_aid_kit_PNG60.png?v=1587740036435"
+            )
+          );
+          ve.push(
+            sketch.loadImage(
+              "https://cdn.glitch.com/76058025-5943-4574-a266-27710a4366a7%2FM9A1_Bayonet.png?v=1587740035886"
+            )
+          );
+          ve.push(
+            sketch.loadImage(
+              "https://cdn.glitch.com/76058025-5943-4574-a266-27710a4366a7%2F%D0%90%D1%80%D0%BC%D0%B5%D0%B9%D1%81%D0%BA%D0%B8%D0%B5%20%D0%91%D1%83%D0%B4%D0%BD%D0%B8%20001-500x500.png?v=1587734632684"
+            )
+          );
+          ve2.push(
+            sketch.loadImage(
+              "https://cdn.glitch.com/76058025-5943-4574-a266-27710a4366a7%2FHuhtamaki-%D0%9025-1.png?v=1587733968376"
+            )
+          );
+          ve2.push(
+            sketch.loadImage(
+              "https://cdn.glitch.com/76058025-5943-4574-a266-27710a4366a7%2Fsuhariki.png?v=1587734047136"
+            )
+          );
+          ve2.push(
+            sketch.loadImage(
+              "https://cdn.glitch.com/76058025-5943-4574-a266-27710a4366a7%2F%D1%81%D0%B5%D0%BA%D1%81%D1%82%D0%B0%D0%BD%D1%82-png-7.png?v=1587734238495"
+            )
+          );
+          ve2.push(
+            sketch.loadImage(
+              "https://cdn.glitch.com/76058025-5943-4574-a266-27710a4366a7%2F88aff9e4a9a05e577a737f1663e596c7.png?v=1587734734981"
+            )
+          );
+          ve2.push(
+            sketch.loadImage(
+              "https://cdn.glitch.com/76058025-5943-4574-a266-27710a4366a7%2Ffa_ru_shower_gel_island_vibes_fiji_970x1400.png.png?v=1587734793220"
+            )
+          );
+          ve2.push(
+            sketch.loadImage(
+              "https://cdn.glitch.com/76058025-5943-4574-a266-27710a4366a7%2Fpassport_PNG18188.png?v=1587736576714"
+            )
+          );
+          ve2.push(
+            sketch.loadImage(
+              "https://cdn.glitch.com/76058025-5943-4574-a266-27710a4366a7%2Fsneakers-skate-shoe-basketball-shoe-sportswear-nike-air-force-thumb.png?v=1587741129613"
+            )
+          );
+          ve2.push(
+            sketch.loadImage(
+              "https://cdn.glitch.com/76058025-5943-4574-a266-27710a4366a7%2F%D0%B7%D0%B0%D0%BA%D1%80%D1%8B%D1%82%D0%B0%D1%8F-%D0%BA%D0%BD%D0%B8%D0%B3%D0%B0-png-2.png?v=1587740035488"
+            )
+          );
+        };
+        sketch.setup = function() {
+          sketch.createCanvas(700, 600);
+          for (let i = 0; i < 8; i++) ves[i] = new stuff(ve[i]);
+          for (let i = 0; i < 8; i++) ves2[i] = new stuff2(ve2[i]);
+        };
+        sketch.draw = function() {
+          if (col2 > 0) {
+            col2 = 8 - col;
+          }
+          sketch.background(img1);
+          sketch.strokeWeight(2);
+          sketch.image(img, 0, 300, 300, 300);
+          sketch.line(303, 600, 303, 0);
+          for (let i = 0; i < 8; i++) {
+            ves[i].show();
+            ves2[i].show();
+          }
+          if (sketch.mouseIsPressed && kv == 1 && ch == 1) {
+            ves[k].move();
+          }
+          if (sketch.mouseIsPressed && kv == 2 && ch == 1) {
+            ves2[k].move();
+          }
+          sketch.strokeWeight(1);
+          sketch.fill("darkgray");
+          sketch.rect(0, 0, 150, 80);
+          sketch.fill("lightgray");
+          sketch.rect(50, 50, 50, 20);
+          sketch.fill("black");
+          sketch.textSize(15);
+          sketch.strokeWeight(0);
+          sketch.text(`Свободного места:`, 75, 30);
+          sketch.text(`${col2} из 8`, 75, 45);
+          sketch.text("check", 75, 65);
+          for (let i = 0; i < 8; i++) {
+            if (sketch.mouseIsPressed) {
+            } else if (ves[i].x < 300 && col <= 7) {
+              col += 1;
+              count += 1;
+              ves[i].x = 1999;
+            } else if (ves2[i].x < 300 && col <= 7) {
+              col += 1;
+              ves2[i].x = 1999;
+            }
+          }
+          if (m == 1 && count < 5) {
+            sketch.fill("darkgray");
+            sketch.strokeWeight(5);
+            sketch.rect(0, 0, 700, 700);
+            sketch.fill("darkgreen");
+            sketch.textAlign(sketch.CENTER);
+            sketch.textSize(50);
+            sketch.text("Стой!", 350, 200);
+            sketch.textSize(17.5);
+            sketch.text("Тебе повезло, что тебя остановили", 350, 250);
+            sketch.text(
+              "Ты забыл вещи необходимые тебе в тылу врага",
+              350,
+              270
+            );
+            sketch.text("Тебе следует собрать рюкак еще раз", 350, 290);
+            sketch.text("Нажмите S чтобы начать заново", 350, 310);
+            if (sketch.keyIsDown(83)) {
+              restarting();
+            }
+          } else if (m == 1 && count >= 5) {
+            sketch.fill("darkgray");
+            sketch.rect(0, 0, 700, 700);
+            sketch.fill("darkgreen");
+            sketch.textAlign(sketch.CENTER);
+            sketch.textSize(50);
+            sketch.text("Молодец", 350, 200);
+            sketch.textSize(17.5);
+            sketch.text("Рюкзак собран полностью", 350, 250);
+            sketch.text("Ты готов к заданию", 350, 270);
+            sketch.image(img3, 300, 330, 100, 125);
+            readyToGoTo2 = true;
+          }
+          if (start == 0) {
+            sketch.fill("darkgray");
+            sketch.strokeWeight(5);
+            sketch.rect(0, 0, 700, 700);
+            sketch.fill("darkgreen");
+            sketch.count = 0;
+            sketch.textAlign(sketch.CENTER);
+            sketch.textSize(50);
+            sketch.text("Внимание Солдат", 350, 200);
+            sketch.textSize(17.5);
+            sketch.text("Тебе поручается ответственное задание", 350, 250);
+            sketch.text(
+              "Ты идешь на разведку вглубь вражеской территории",
+              350,
+              270
+            );
+            sketch.text("Тебе следует собрать рюкак", 350, 290);
+            sketch.text(
+              "От этого зависит, сможешь ли ты выполнить задание или нет",
+              350,
+              310
+            );
+            sketch.text(
+              "В рюкзак может поместиться только 8 вещей, выбирай с умом",
+              350,
+              330
+            );
+            sketch.text("Родина надеется на тебя", 350, 350);
+            sketch.text("Нажми на кнопку CHECK чтобы проверить", 350, 370);
+            sketch.text("Нажмите S чтобы начать", 350, 390);
+            if (sketch.keyIsDown(83)) {
+              start = 1;
+            }
+          }
+        };
+
+        function restarting() {
+          for (let i = 0; i < 8; i++) {
+            ves[i].x = sketch.random(300, 600);
+            ves[i].y = sketch.random(0, 600);
+            ves2[i].x = sketch.random(300, 600);
+            ves2[i].y = sketch.random(0, 600);
+          }
+          count = 0;
+          col = 0;
+          m = 0;
+        }
+
+        sketch.mousePressed = function() {
+          for (let i = 0; i < 8; i++) {
+            if (
+              sketch.mouseX > ves[i].x &&
+              sketch.mouseX - 100 < ves[i].x &&
+              sketch.mouseY > ves[i].y &&
+              sketch.mouseY - 100 < ves[i].y
+            ) {
+              k = i;
+              kv = 1;
+              ch = 1;
+            }
+            if (
+              sketch.mouseX > ves2[i].x &&
+              sketch.mouseX - 100 < ves2[i].x &&
+              sketch.mouseY > ves2[i].y &&
+              sketch.mouseY - 100 < ves2[i].y
+            ) {
+              k = i;
+              kv = 2;
+              ch = 1;
+            }
+          }
+          if (
+            sketch.mouseX > 50 &&
+            sketch.mouseX < 100 &&
+            sketch.mouseY > 50 &&
+            sketch.mouseY < 70
+          ) {
+            m = 1;
+          }
+        };
+      }, "items");
+    </script>
+    <script type="text/javascript">
+      new p5(function(sketch1) {
+        var count,
+          img10,
+          img0,
+          img20,
+          img30,
+          k = 3,
+          kl = 3,
+          stoptime = 30,
+          speed = 4,
+          start = 0,
+          x = 656,
+          y = 444;
+        var lifes = [],
+          prep = [];
+        class planes {
+          constructor() {}
+          show() {
+            sketch1.strokeWeight(2);
+            sketch1.image(
+              img10,
+              sketch1.mouseX - 25,
+              sketch1.mouseY - 25,
+              50,
+              50
+            );
+          }
+        }
+        class prepyatstvie {
+          constructor() {
+            this.x = 600;
+            this.ra = sketch1.random(10, 300);
+            this.y = 400 - this.ra;
+          }
+          show() {
+            sketch1.strokeWeight(0);
+            sketch1.fill("darkgreen");
+            if (this.x < 0) {
+              this.x = 600;
+              this.ra = sketch1.random(10, 300);
+              this.y = 400 - this.ra;
+            }
+            this.x -= speed;
+            sketch1.rect(this.x, 0, 20, this.ra);
+            sketch1.rect(this.x, this.ra + 90, 20, this.ra + 500);
+          }
+        }
+        class life {
+          constructor() {
+            this.x = 640;
+            this.y = 0;
+            this.r = 20;
+          }
+          show() {
+            sketch1.strokeWeight(2);
+            sketch1.fill("skyblue");
+            sketch1.rect(this.x, this.y, 20, 30);
+          }
+        }
+        sketch1.preload = function() {
+          img10 = sketch1.loadImage(
+            "https://cdn.glitch.com/76058025-5943-4574-a266-27710a4366a7%2Fcurtiss_sb2c1_2.png?v=1587669781741"
+          );
+          img0 = sketch1.loadImage(
+            "https://cdn.glitch.com/76058025-5943-4574-a266-27710a4366a7%2Fshop_items_catalog_image12626.png?v=1587715214178"
+          );
+          img20 = sketch1.createImg(
+            "https://cdn.glitch.com/76058025-5943-4574-a266-27710a4366a7%2F50x62_realradar012700.gif?v=1587726746617"
+          );
+          img30 = sketch1.loadImage(
+            "https://cdn.glitch.com/76058025-5943-4574-a266-27710a4366a7%2F2c9738d8ab546b3f2182e221440e81d8.jpg?v=1587725667410"
+          );
+        };
+        sketch1.setup = function() {
+          sketch1.createCanvas(700, 500);
+          count = 50;
+          for (let i = 0; i < kl; i++) lifes[i] = new life();
+          for (let i = 0; i < k; i++) prep[i] = new prepyatstvie();
+          plane1 = new planes();
+          prep[1].x = 800;
+          prep[2].x = 1000;
+        };
+        sketch1.draw = function() {
+          img20.position(x, y);
+          sketch1.background(img30);
+          counting();
+          sketch1.strokeWeight(10);
+          if (stoptime != 30) {
+            stoptime++;
+          }
+          if (count > 20) {
+            speed = 5;
+          }
+          if (count > 40) {
+            speed = 6;
+          }
+          plane1.show();
+          for (let i = 0; i < kl; i += 1) {
+            for (let j = 0; j < 37 * kl; j += 37) {
+              lifes[i].x = 640 - j;
+              lifes[i].show();
+            }
+          }
+          for (let i = 0; i < k; i += 1) {
+            prep[i].show();
+          }
+          sketch1.fill("darkgray");
+          sketch1.rect(500, 436, 300, 100);
+          sketch1.fill("darkgreen");
+          sketch1.textSize(14);
+          sketch1.text("Сканирование...", 570, 450);
+          sketch1.text(`Просканировано: ${count * 2}%`, 572, 470);
+          if (kl <= 0) {
+            sketch1.fill("darkgray");
+            sketch1.strokeWeight(5);
+            sketch1.rect(0, 0, 700, 500);
+            sketch1.textSize(30);
+            sketch1.fill("darkgreen");
+            sketch1.text("Ваше местоположение известно врагам", 350, 200);
+            sketch1.text("Миссия провалена", 350, 240);
+            sketch1.textSize(20);
+            sketch1.text("Нажмите R чтобы начать заново", 350, 280);
+            x = -1000;
+            y = 0;
+            if (sketch1.keyIsDown(82)) {
+              restarting();
+            }
+          }
+          if (count > 50) {
+            sketch1.fill("darkgray");
+            sketch1.strokeWeight(5);
+            sketch1.rect(0, 0, 700, 500);
+            sketch1.textSize(30);
+            sketch1.fill("darkgreen");
+            sketch1.text("Поздравляем, ты пролетел незамеченным", 350, 200);
+            sketch1.text("Родина гордится тобой", 350, 245);
+            sketch1.image(img0, 300, 330, 100, 125);
+            readyToGoTo4 = true;
+            x = -1000;
+            y = 0;
+            if (sketch1.keyIsDown(82)) {
+              restarting();
+            }
+          }
+          if (start == 0) {
+            sketch1.fill("darkgray");
+            sketch1.strokeWeight(5);
+            sketch1.rect(0, 0, 700, 500);
+            sketch1.fill("darkgreen");
+            count = 0;
+            sketch1.textAlign(sketch1.CENTER);
+            sketch1.textSize(50);
+            sketch1.text("Внимание Пилот", 350, 200);
+            sketch1.textSize(17.5);
+            sketch1.text("Тебе поручается ответственное задание", 350, 250);
+            sketch1.text(
+              "Ты должен провести разведку на вражеской территории",
+              350,
+              270
+            );
+            sketch1.text(
+              "На территории работает радар, но мы нашли способ пролететь незамеченным",
+              350,
+              290
+            );
+            sketch1.text(
+              "Следуй маршруту и останешься незамеченным, справа наверху у тебя индикатор",
+              350,
+              310
+            );
+            sketch1.text(
+              "Как только все полосы на индикаторе пропадут, ты будешь обнаружен",
+              350,
+              330
+            );
+            sketch1.text("Родина надеется на тебя", 350, 350);
+            sketch1.text("Нажмите R чтобы начать", 350, 370);
+            prep[0].x = 600;
+            prep[1].x = 800;
+            prep[2].x = 1000;
+            speed = 5;
+            count = 0;
+            kl = 3;
+            y = 0;
+            x = -1000;
+            if (sketch1.keyIsDown(82)) {
+              start = 1;
+            }
+          } else if (count < 50 && kl > 0) {
+            x = 656;
+            y = 444;
+          }
+        };
+        function restarting() {
+          kl = 3;
+          prep[0].x = 600;
+          prep[1].x = 800;
+          prep[2].x = 1000;
+          speed = 5;
+          count = 0;
+        }
+        function counting() {
+          for (let i = 0; i < k; i += 1) {
+            if (
+              sketch1.mouseX - 25 > prep[i].x &&
+              sketch1.mouseY + 25 < prep[i].ra + 100 &&
+              sketch1.mouseY - 25 > prep[i].ra - 10 &&
+              sketch1.mouseX - 25 < prep[i].x + 5
+            ) {
+              count = count + 1;
+            } else if (
+              sketch1.mouseX - 25 > prep[i].x &&
+              (sketch1.mouseY + 25 >= prep[i].ra + 80 ||
+                sketch1.mouseY - 25 <= prep[i].ra) &&
+              sketch1.mouseX - 25 < prep[i].x + 5 &&
+              stoptime == 30
+            ) {
+              kl -= 1;
+              stoptime = 0;
+            }
+          }
+        }
+      }, "flappy");
+    </script>
+    <script type="text/javascript">
+      window.onload = function() {
+        canvas1 = setInterval(function() {
+          for (let child in document.getElementById("items").children) {
+            if (child == "length") {
+              break;
+            }
+            document
+              .getElementById("items")
+              .children[child].setAttribute("hidden", "");
+          }
+        }, 1);
+        canvas2 = setInterval(function() {
+          for (let child in document.getElementById("flappy").children) {
+            if (child == "length") {
+              break;
+            }
+            document
+              .getElementById("flappy")
+              .children[child].setAttribute("hidden", "");
+          }
+        }, 1);
+        setTimeout(function() {
+          alert("Квест загружен!");
+        }, 1000);
+      };
+    </script>
+  </head>
+  <body style="background-color: #7f020f;">
+    <span
+      style="font-size: 26px; color: white; font-family: Times New Roman; font-weight: bold;"
+      >Добро пожаловать на квест, посвящённый 9 мая!<br />
+      Перед началом квеста проверь своё Интернет-соединение, без него начать
+      будет нельзя.<br />
+      На квест у тебя есть 30 минут, отслеживать время ты можешь в названии
+      вкладки после начала квеста.<br />
+      И да, давай будем играть честно, потому что ни оценки, ни уменьшение
+      количества ДЗ ты от этого не получишь.<br />
+      Для нормальной прогрузки страницы принимать участие нужно с компьютера.
+      Удачи!
+    </span>
+    <br /><br />
+    <input
+      placeholder="Фамилия Имя"
+      style="margin-bottom: 5px; width: 178px; font-size: 26px; font-family: Times New Roman"
+    /><br /><button
+      onclick="to1()"
+      style="font-size: 26px; font-family: Times New Roman; font-weight: bold;"
+    >
+      Начать квест!
+    </button>
+    <br />
+    <div id="items"></div>
+    <div id="flappy"></div>
+  </body>
+</html>
