@@ -258,7 +258,6 @@
         }
         document.removeAll();
         document.getElementById("flappy").remove();
-        document.title = "Квест на 9 мая";
         document.body.append(document.createElement("span"));
         document
           .getElementsByTagName("span")[0]
@@ -267,7 +266,147 @@
             "font-size: 26px; color: white; font-family: Times New Roman; font-weight: bold; text-decoration: underline;"
           );
         document.getElementsByTagName("span")[0].innerHTML =
-          "Задание 4. Итоговый тест.";
+          "Задание 4. Поиск места на карте.";
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[1]
+          .setAttribute(
+            "style",
+            "font-size: 20px; color: white; font-family: Times New Roman; font-weight: bold;"
+          );
+        document.getElementsByTagName("span")[1].innerHTML =
+          "Задача: дать номер исторического места на карте по его названию.";
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("img"));
+        document
+          .getElementsByTagName("img")[0]
+          .setAttribute(
+            "src",
+            "https://cdn.glitch.com/76058025-5943-4574-a266-27710a4366a7%2FScreenshot_119.png?v=1587929955332"
+          );
+        document.getElementsByTagName("img")[0].setAttribute("width", "706");
+        document.getElementsByTagName("img")[0].setAttribute("height", "398");
+        document.body.append(document.createElement("br"));
+
+        document.body.append(document.createElement("input"));
+        document.getElementsByTagName("input")[0].setAttribute("readonly", "");
+        document
+          .getElementsByTagName("input")[0]
+          .setAttribute(
+            "style",
+            "margin-bottom: 5px; width: 178px; font-size: 26px; font-family: Times New Roman"
+          );
+        document
+          .getElementsByTagName("input")[0]
+          .setAttribute("value", "Курган славы");
+
+        document.body.append(document.createElement("input"));
+        document
+          .getElementsByTagName("input")[1]
+          .setAttribute(
+            "style",
+            "margin-bottom: 5px; width: 178px; font-size: 26px; font-family: Times New Roman"
+          );
+
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("input"));
+        document.getElementsByTagName("input")[2].setAttribute("readonly", "");
+        document
+          .getElementsByTagName("input")[2]
+          .setAttribute(
+            "style",
+            "margin-bottom: 5px; width: 178px; font-size: 26px; font-family: Times New Roman"
+          );
+        document
+          .getElementsByTagName("input")[2]
+          .setAttribute("value", "Дубосеково");
+
+        document.body.append(document.createElement("input"));
+        document
+          .getElementsByTagName("input")[3]
+          .setAttribute(
+            "style",
+            "margin-bottom: 5px; width: 178px; font-size: 26px; font-family: Times New Roman"
+          );
+
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("input"));
+        document.getElementsByTagName("input")[4].setAttribute("readonly", "");
+        document
+          .getElementsByTagName("input")[4]
+          .setAttribute(
+            "style",
+            "margin-bottom: 5px; width: 178px; font-size: 26px; font-family: Times New Roman"
+          );
+        document
+          .getElementsByTagName("input")[4]
+          .setAttribute("value", "Сапун-гора");
+
+        document.body.append(document.createElement("input"));
+        document
+          .getElementsByTagName("input")[5]
+          .setAttribute(
+            "style",
+            "margin-bottom: 5px; width: 178px; font-size: 26px; font-family: Times New Roman"
+          );
+
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("input"));
+        document.getElementsByTagName("input")[6].setAttribute("readonly", "");
+        document
+          .getElementsByTagName("input")[6]
+          .setAttribute(
+            "style",
+            "margin-bottom: 5px; width: 178px; font-size: 26px; font-family: Times New Roman"
+          );
+        document
+          .getElementsByTagName("input")[6]
+          .setAttribute("value", "Мамаев курган");
+
+        document.body.append(document.createElement("input"));
+        document
+          .getElementsByTagName("input")[7]
+          .setAttribute(
+            "style",
+            "margin-bottom: 5px; width: 178px; font-size: 26px; font-family: Times New Roman"
+          );
+
+        document.body.append(document.createElement("br"));
+        document.body.append(document.createElement("button"));
+        document.getElementsByTagName("button")[0].innerHTML =
+          "Перейти к заданию 5";
+        document
+          .getElementsByTagName("button")[0]
+          .setAttribute(
+            "style",
+            "font-size: 26px; font-family: Times New Roman; font-weight: bold;"
+          );
+        document
+          .getElementsByTagName("button")[0]
+          .setAttribute("onclick", "to5()");
+      }
+
+      function to5() {
+        if (
+          document.getElementsByTagName("input")[1].value !== "2" ||
+          document.getElementsByTagName("input")[3].value !== "3" ||
+          document.getElementsByTagName("input")[5].value !== "1" ||
+          document.getElementsByTagName("input")[7].value !== "4"
+        ) {
+          return alert("Не все номера верны!");
+        }
+        document.getElementsByTagName("img")[0].remove();
+        document.removeAll();
+        document.body.append(document.createElement("span"));
+        document
+          .getElementsByTagName("span")[0]
+          .setAttribute(
+            "style",
+            "font-size: 26px; color: white; font-family: Times New Roman; font-weight: bold; text-decoration: underline;"
+          );
+        document.getElementsByTagName("span")[0].innerHTML =
+          "Задание 5. Итоговый тест.";
         document.body.append(document.createElement("br"));
         document.body.append(document.createElement("span"));
         document
@@ -1163,9 +1302,6 @@
               .children[child].setAttribute("hidden", "");
           }
         }, 1);
-        setTimeout(function() {
-          alert("Квест загружен!");
-        }, 1000);
       };
     </script>
   </head>
