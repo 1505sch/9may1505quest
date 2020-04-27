@@ -77,10 +77,11 @@
       };
       function to1() {
         if (document.getElementsByTagName("input")[0].value == "") {
-          return alert("Введи фамилию и имя!");
+          return alert("Ты не заполнил поле!");
         }
         nickname = document.getElementsByTagName("input")[0].value;
         document.removeAll();
+        document.getElementsByTagName("div")[0].remove();
         document.title = "9 мая (30 мин осталось)";
         timeStart = new Date();
         timer = setInterval(function() {
@@ -762,7 +763,7 @@
           );
         document.getElementsByTagName(
           "span"
-        )[1].innerHTML = `Фамилия Имя: <i>${nickname}</i>`;
+        )[1].innerHTML = `Данные: <i>${nickname}</i>`;
         document.body.append(document.createElement("br"));
         document.body.append(document.createElement("span"));
         document
@@ -1418,8 +1419,8 @@
     </span>
     <br /><br />
     <input
-      placeholder="Фамилия Имя"
-      style="margin-bottom: 5px; width: 178px; font-size: 26px; font-family: Times New Roman"
+      placeholder="Фамилия Имя Класс Номер школы"
+      style="margin-bottom: 5px; width: 400px; font-size: 26px; font-family: Times New Roman"
     /><br /><button
       onclick="to1()"
       style="font-size: 26px; font-family: Times New Roman; font-weight: bold;"
